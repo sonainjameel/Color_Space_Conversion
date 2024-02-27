@@ -23,7 +23,7 @@ Explore the fascinating world of color spaces using MATLAB! This repository cont
 
 ## Visual Guide 📊
 
-Below is a visual representation of the different color spaces and their components as processed by the script. This image, named `color_space.png`, is a comprehensive guide to understanding how each color space represents colors and their components.
+Below is a visual representation of the different color spaces and their components as processed by the script. This image, named `color_spaces.png`, is a comprehensive guide to understanding how each color space represents colors and their components.
 
 ![Color Spaces](color_spaces.png)
 
