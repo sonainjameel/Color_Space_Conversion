@@ -1,0 +1,111 @@
+clc
+clear all
+close all
+I=imread("test.jpg");
+I=imresize(I,[500 500]);
+
+% Extract color channels.
+redChannel = I(:,:,1); % Red channel
+greenChannel = I(:,:,2); % Green channel
+blueChannel = I(:,:,3); % Blue channel
+% Create an all black channel.
+allBlack = zeros(size(I, 1), size(I, 2), 'uint8');
+% Create color versions of the individual color channels.
+just_red = cat(3, redChannel, allBlack, allBlack);
+just_green = cat(3, allBlack, greenChannel, allBlack);
+just_blue = cat(3, allBlack, allBlack, blueChannel);
+
+subplot(441)
+imshow(I)
+title("RGB image")
+subplot(442)
+imshow(just_red)
+title("R channel")
+subplot(443)
+imshow(just_green)
+title("G channel")
+subplot(444)
+imshow(just_blue)
+title("B channel")
+
+
+
+% Convert the RGB image to HSV
+hsvImage = rgb2hsv(I);
+
+% Extract the H, S, and V components
+H = hsvImage(:,:,1);
+S = hsvImage(:,:,2);
+V = hsvImage(:,:,3);
+
+% Display the Hue component with colors
+% Create a full saturation and value image with varying hue
+HueImage = cat(3, H, ones(size(H)), ones(size(H)));
+HueImageRGB = hsv2rgb(HueImage);
+subplot(446), imshow(HueImageRGB), title('Hue');
+
+% Display the Saturation component with colors
+% Keep the hue constant (e.g., 0.5 for a pink/red hue) and vary the saturation
+SatImage = cat(3, 0.5*ones(size(S)), S, ones(size(S)));
+SatImageRGB = hsv2rgb(SatImage);
+subplot(447), imshow(SatImageRGB), title('Saturation');
+
+% Display the Value component in grayscale
+subplot(448), imshow(V), title('Value');
+
+subplot(445), imshow(hsvImage), title('HSV Image');
+
+
+
+
+% Convert the RGB image to YCbCr
+ycbcrImage = rgb2ycbcr(I);
+
+% Extract the Y, Cb, and Cr components
+Y = ycbcrImage(:,:,1);
+Cb = ycbcrImage(:,:,2);
+Cr = ycbcrImage(:,:,3);
+
+% Display the Y component in grayscale
+subplot(4,4,10), imshow(Y), title('Luminance (Y)');
+
+% Display the Cb component with colors
+% Map Cb to a blue-yellow color map for visualization
+CbScaled = mat2gray(Cb); % Scale Cb to [0, 1] for colormap application
+CbColored = ind2rgb(im2uint8(CbScaled), cool(256)); % Apply colormap
+subplot(4,4,11), imshow(CbColored), title('Chroma Blue (Cb)');
+
+% Display the Cr component with colors
+% Map Cr to a red-green color map for visualization
+CrScaled = mat2gray(Cr); % Scale Cr to [0, 1] for colormap application
+CrColored = ind2rgb(im2uint8(CrScaled), hot(256)); % Apply colormap
+subplot(4,4,12), imshow(CrColored), title('Chroma Red (Cr)');
+
+subplot(449), imshow(ycbcrImage), title('YCbCr Image');
+
+
+
+% Convert the RGB image to Lab
+labImage = rgb2lab(I);
+
+% Extract the L*, a*, and b* components
+L = labImage(:,:,1);
+a = labImage(:,:,2);
+b = labImage(:,:,3);
+
+% Display the L* component in grayscale
+subplot(4,4,14), imshow(L, []), title('Lightness (L*)');
+
+% Display the a* component with colors
+% Scale and shift the a* values to fit within the [0, 1] range for coloring
+aScaled = mat2gray(a);
+aColored = ind2rgb(im2uint8(aScaled), (256)); % Apply jet colormap for visualization
+subplot(4,4,15), imshow(aColored), title('a* (Green-Red)');
+
+% Display the b* component with colors
+% Scale and shift the b* values to fit within the [0, 1] range for coloring
+bScaled = mat2gray(b);
+bColored = ind2rgb(im2uint8(bScaled), parula(256)); % Apply jet colormap for visualization
+subplot(4,4,16), imshow(bColored), title('b* (Blue-Yellow)');
+
+subplot(4,4,13), imshow(labImage), title('Lab Image');
