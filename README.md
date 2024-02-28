@@ -9,7 +9,7 @@ Explore the fascinating world of color spaces using MATLAB! This repository cont
 - **YCbCr Conversion** 📺: Delve into the YCbCr color space, used extensively in video compression, to analyze the luminance and chrominance components of the image.
 - **Lab Color Space** 🧪: Experience the Lab color space, which is designed to approximate human vision, focusing on perceptual uniformity.
 
-🏁 ## Getting Started 
+## 🏁 Getting Started 
 
 <details>
 <summary>Click to expand!</summary>
